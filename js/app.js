@@ -20,28 +20,8 @@ function startTime() {
         startTime()
     }, 500);
 }
-/*
-window.onload = function() {
-    startTime();
-    let sid = document.getElementById("sid");
-    let fname = document.getElementById("name");
-    let button = document.getElementById("submitBtn");
 
-    students.forEach(this.addStudentToList);
-
-    button.addEventListener("click", function() {
-        if (sid.value && fname.value) {
-            let student = {
-                "sid": sid.value,
-                "name": fname.value
-            }
-            students.push(student);
-            addStudentToList(student);
-        }
-    });
-};*/
-
-let students = [
+const students = [
     { sid: "000-98-0001", name: "James" },
     { sid: "000-98-0002", name: "Anna" },
     { sid: "000-98-0003", name: "Jeffrey" }
@@ -49,22 +29,12 @@ let students = [
 
 (function () {
     startTime();
-    let sid = document.getElementById("sid");
-    let fname = document.getElementById("name");
-    let button = document.getElementById("submitBtn");
 
-    students.forEach(this.addStudentToList);
-
-    button.addEventListener("click", function() {
-        if (sid.value && fname.value) {
-            let student = {
-                "sid": sid.value,
-                "name": fname.value
-            }
-            students.push(student);
-            addStudentToList(student);
-        }
-    });
+    students.forEach(stu => {
+        addStudentToList(stu);
+    }); 
+    let button = document.getElementById("submitBtn");      
+    button.onclick = addNewStudent;
 })();
 
 function addStudentToList(student) {
@@ -72,34 +42,15 @@ function addStudentToList(student) {
     let newStudentContent = document.createTextNode(student.sid + " - " + student.name); 
     newStudent.setAttribute('class', 'list-group-item');
     newStudent.appendChild(newStudentContent);    
-    document.getElementById("studentlist").appendChild(newStudent);
+    document.getElementById("studentlist").appendChild(newStudent);    
 }
-/*
-var adder = (function() {
-    let students = [
-        { sid: "000-98-0001", name: "James" },
-        { sid: "000-98-0002", name: "Anna" },
-        { sid: "000-98-0003", name: "Jeffrey" }
-    ];
-	function pushStudent(){ 
-        console.log('push student called');      
-        let sid = document.getElementById("sid");
-        let name = document.getElementById("name");
-        students.push({
-            "sid":sid,
-            "name":name
-        });
 
-        let newLi = document.createElement("li"); 
-        let newLiContent = document.createTextNode(sid + "-" + name); 
-        newLi.appendChild(newLiContent);  
-        document.getElementById("studentlist").appendChild(newLi);
-    }
-	return {
-		addStudent: function() {   
-            console.log('add student called');          
-            pushStudent();
-        }, 
-	}; 
-})(); 
-*/
+function addNewStudent(){
+    let sid = document.getElementById("sid");
+    let fname = document.getElementById("name");   
+    let student = {
+        "sid": sid.value,
+        "name": fname.value
+    };
+    addStudentToList(student);   
+}
