@@ -12,11 +12,6 @@
 When finished and tested all okay, Upload your source code here to Sakai as a single .html file or create a zip file and upload (if it is not a single file).
 
 Make sure to add a brief note, saying what you were able to do, how you did it and how it went, what worked and what didn't quite work.*/ 
-let students = [
-    { sid: "000-98-0001", name: "James" },
-    { sid: "000-98-0002", name: "Anna" },
-    { sid: "000-98-0003", name: "Jeffrey" }
-];
 
 function startTime() {
     let today = new Date();
@@ -25,7 +20,7 @@ function startTime() {
         startTime()
     }, 500);
 }
-
+/*
 window.onload = function() {
     startTime();
     let sid = document.getElementById("sid");
@@ -44,7 +39,33 @@ window.onload = function() {
             addStudentToList(student);
         }
     });
-};
+};*/
+
+let students = [
+    { sid: "000-98-0001", name: "James" },
+    { sid: "000-98-0002", name: "Anna" },
+    { sid: "000-98-0003", name: "Jeffrey" }
+];
+
+(function () {
+    startTime();
+    let sid = document.getElementById("sid");
+    let fname = document.getElementById("name");
+    let button = document.getElementById("submitBtn");
+
+    students.forEach(this.addStudentToList);
+
+    button.addEventListener("click", function() {
+        if (sid.value && fname.value) {
+            let student = {
+                "sid": sid.value,
+                "name": fname.value
+            }
+            students.push(student);
+            addStudentToList(student);
+        }
+    });
+})();
 
 function addStudentToList(student) {
     let newStudent = document.createElement("li"); 
