@@ -5,7 +5,7 @@
     <title>Lab 6</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <style>
         body {
             padding: 0;
@@ -26,6 +26,7 @@
             display: block;
             width: 100%;
         }
+
         input[type="text"],
         input[type="password"],
         select {
@@ -36,26 +37,15 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        #submitBtn {
-            color: #fff;
-            display: inline-block;
-            padding: 15px 25px;
-            border: none;
-            font-size: 17px;
-            font-weight: 400;
-            margin-top: 13px;
-            border-radius: 4px;
-            min-width: 100px;
-            margin-right: 20px;
-            background: #007BFF;
-        }
-    
+
         label {
             margin: 15px 0 5px 0;
         }
+
         .mt40 {
             margin-top: 40px;
         }
+
         section h2 {
             background: #007bff;
             color: #fff;
@@ -64,7 +54,7 @@
             font-size: 20px;
             margin: 0;
         }
-    </style>   
+    </style>
 </head>
 
 <body class="container">
@@ -72,15 +62,15 @@
         <header>
             <h1>Hello Javascript();</h1>
             <span id="time"></span>
-        </header>       
+        </header>
     </div>
     <section>
-        <form method="POST" id="studentForm" onsubmit="return false;">
+        <form>
             <div class="row">
                 <div class="col-md-12">
                     <label for="sid">Student Id</label>
-                    <input type="text" name="sid" id="sid" placeholder="000-XX-XXXX" required pattern="\d{3}-\d{2}-\d{4}"
-                        title="Please use valid format 000-XX-XXXX">
+                    <input type="text" name="sid" id="sid" placeholder="000-XX-XXXX" required
+                        pattern="\d{3}-\d{2}-\d{4}" title="Please use valid format 000-XX-XXXX">
                     <small>Your unique student Identification number</small>
                 </div>
                 <div class="col-md-12">
@@ -88,7 +78,7 @@
                     <input type="text" name="name" id="name" required>
                 </div>
             </div>
-            <button id="submitBtn">Submit</button>
+            <button id="submitBtn" type="submit" class="btn btn-lg btn-primary mt40">Submit</button>
         </form>
         <section class="mt40">
             <h2>Student Names</h2>
@@ -100,7 +90,52 @@
             </a>
         </div>
     </section>
-    <script src="js/app.js"></script>
-</body>
+    <script>
+        (function () {
+            setInterval(function () {
+                document.getElementById("time").textContent = new Date();
+            }, 1000);
 
+            // Load Data and add event handlers
+            const students = [
+                { "studentId": "000-98-0001", "firstName": "James" },
+                { "studentId": "000-98-0002", "firstName": "Anna" },
+                { "studentId": "000-98-0003", "firstName": "Jeffrey" }
+            ];
+            const txtStudentId = document.getElementById("sid");
+            const txtStudentName = document.getElementById("name");
+            const btnSubmit = document.querySelector("#submitBtn");
+
+            //Add initail student data to the DOM
+            window.addEventListener("load", function () {
+                students.map(
+                    stu => addElementToList(stu)
+                );
+            });
+
+            //helper function to add student object data to the view
+            function addElementToList(student) {
+                var li = document.createElement("li");
+                li.className = "list-group-item";
+                li.innerHTML = student.studentId + " - " + student.firstName;
+                document.querySelector("#studentlist").appendChild(li);
+            }
+
+
+            btnSubmit.addEventListener("click", function (event) {
+                if (txtStudentId.value != "" && txtStudentName.value != "") {
+                    var studentNode = {
+                        "studentId": txtStudentId.value,
+                        "firstName": txtStudentName.value
+                    };
+                    addElementToList(studentNode);
+                    txtStudentId.value = "";
+                    txtStudentName.value = "";
+                    txtStudentId.focus();
+                }
+                event.preventDefault();
+            })
+        })();
+    </script>
+</body>
 </html>
